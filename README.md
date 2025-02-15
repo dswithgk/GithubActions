@@ -68,3 +68,18 @@ jobs:
                 echo "Deploying to AWS EC2"
 ```
 
+
+
+# Task 3: Write Unit Tests for an Application
+
+Objective: Write unit tests for a simple application and integrate them into a CI pipeline.
+
+Tools: Jest (JavaScript), JUnit (Java), pytest (Python)
+
+
+Instructionsl
+- Create a small application (e.g., a calculator, to-do list, or API)$
+- Write unit tests for the core functions (e.g., add, delete, or update functions)
+- Integrate these tests into a CI pipeline using GitHub Actions, Jenkins, or GitLab CI
+- Document your work with screenshots showing the tests running in the CI pipeline.
+
