@@ -59,9 +59,8 @@ jobs:
                 USER: ${{ secrets.EC2_USER }}
               run: |
                 echo "$PRIVATE_KEY" > private_key.pem
-                cat private_key.pem
                 chmod 600 private_key.pem
-                ssh  -i private_key.pem ec2-user@ec2-13-233-144-138.ap-south-1.compute.amazonaws.com
+                ssh  -o StrictHostKeyChecking=no -i private_key.pem ec2-user@ec2-13-233-144-138.ap-south-1.compute.amazonaws.com
                 echo "Done"
             
 
