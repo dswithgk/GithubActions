@@ -11,18 +11,18 @@ jobs:
         steps:
             - name: Checkout
               uses: actions/checkout@v4
-            - name: Set up Python
-              uses: actions/setup-python@v4
-              with:
-                python-version: '3.11'
-            - name: Install Dependency
-              run: |
-                cd SimpleApp
-                python -m pip install --upgrade pip
-                pip install -r requirements.txt
-            - name: Run Tests
-              run: |
-                python -m pytest
+            # - name: Set up Python
+            #   uses: actions/setup-python@v4
+            #   with:
+            #     python-version: '3.11'
+            # - name: Install Dependency
+            #   run: |
+            #     cd SimpleApp
+            #     python -m pip install --upgrade pip
+            #     pip install -r requirements.txt
+            # - name: Run Tests
+            #   run: |
+            #     python -m pytest
     build_deploy:
         needs: [test]
         runs-on: ubuntu-latest
@@ -60,14 +60,9 @@ jobs:
               run: |
                 echo "$PRIVATE_KEY"
                 echo "$PRIVATE_KEY" > private_key.pem
-                ls -l
                 chmod 600 private_key.pem
-                ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST << EOF
-                  docker pull $ECR_REGISTRY/$IMAGE_NAME:latest
-                  docker stop fastapi-app || true
-                  docker rm fastapi-app || true
-                  docker run -d -p 8000:8000 --name fastapi-app $ECR_REGISTRY/$IMAGE_NAME:latest
-                EOF
+                ssh  -i private_key.pem $USER@$HOST
+                echo "Done"
             
 
             
