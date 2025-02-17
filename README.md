@@ -16,7 +16,6 @@ See app here : https://github.com/dswithgk/GithubActions
 
 <img src = "image.png">
 
-
 ### Code fro CI/CD
 ```bash
 name: "Assignment 1"
@@ -78,8 +77,14 @@ Tools: Jest (JavaScript), JUnit (Java), pytest (Python)
 
 
 Instructionsl
-- Create a small application (e.g., a calculator, to-do list, or API)$
+- Create a small application (e.g., a calculator, to-do list, or API)
 - Write unit tests for the core functions (e.g., add, delete, or update functions)
 - Integrate these tests into a CI pipeline using GitHub Actions, Jenkins, or GitLab CI
 - Document your work with screenshots showing the tests running in the CI pipeline.
+
+Code : https://github.com/dswithgk/GithubActions/tree/main/SimpleApp
+Run : https://github.com/dswithgk/GithubActions/actions/runs/13344677251
+<img src="image-1.png">
+
+
 
