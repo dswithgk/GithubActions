@@ -57,11 +57,13 @@ jobs:
                 PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
                 HOST: ${{ secrets.EC2_HOST }}
                 USER: ${{ secrets.EC2_USER }}
+                ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com
+                IMAGE_NAME: fastapi-app
               run: |
                 echo "$PRIVATE_KEY" > private_key.pem
                 chmod 600 private_key.pem
                 ssh  -o StrictHostKeyChecking=no -i private_key.pem ec2-user@ec2-13-233-144-138.ap-south-1.compute.amazonaws.com
-                echo "Done"
-            
-
-            
+                docker pull $ECR_REGISTRY/$IMAGE_NAME:latest
+                docker stop fastapi-app || true
+                docker rm fastapi-app || true
+                docker run -d -p 8000:8000 --name fastapi-app $ECR_REGISTRY/$IMAGE_NAME:latest  
