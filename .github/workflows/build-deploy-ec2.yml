@@ -50,8 +50,8 @@ jobs:
               run: |
                   cd SimpleApp
                   docker build -t devops .
-                  docker tag devops:latest 307946672928.dkr.ecr.ap-south-1.amazonaws.com/devops:latest
-                  docker push 307946672928.dkr.ecr.ap-south-1.amazonaws.com/devops:latest
+                  docker tag devops:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/devops:latest
+                  docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/devops:latest
 
             
 
