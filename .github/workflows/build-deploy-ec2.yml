@@ -49,8 +49,9 @@ jobs:
                   IMAGE_NAME: fastapi-app
               run: |
                   cd SimpleApp
-                  docker build -t devops/fastapiapp:latest .
-                  docker push devops/fastapiapp:latest
+                  docker build -t devops .
+                  docker tag devops:latest 307946672928.dkr.ecr.ap-south-1.amazonaws.com/devops:latest
+                  docker push 307946672928.dkr.ecr.ap-south-1.amazonaws.com/devops:latest
 
             
 
