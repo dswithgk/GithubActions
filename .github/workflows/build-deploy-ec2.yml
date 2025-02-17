@@ -39,26 +39,28 @@ jobs:
                 aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
                 aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
                 aws-region: 'ap-south-1'
-            - name: Login to ECR
-              id: login-
-              run: |
-                aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com
-            - name: Build, Tag, and Push Docker Image
-              env:
-                  ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com
-                  IMAGE_NAME: fastapi-app
-              run: |
-                  cd SimpleApp
-                  docker build -t devops .
-                  docker tag devops:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/devops:latest
-                  docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/devops:latest
+            # - name: Login to ECR
+            #   id: login-
+            #   run: |
+            #     aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com
+            # - name: Build, Tag, and Push Docker Image
+            #   env:
+            #       ECR_REGISTRY: ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com
+            #       IMAGE_NAME: fastapi-app
+            #   run: |
+            #       cd SimpleApp
+            #       docker build -t devops .
+            #       docker tag devops:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/devops:latest
+            #       docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/devops:latest
             - name: Deploy to EC2
               env:
                 PRIVATE_KEY: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
                 HOST: ${{ secrets.EC2_HOST }}
                 USER: ${{ secrets.EC2_USER }}
               run: |
+                echo "$PRIVATE_KEY"
                 echo "$PRIVATE_KEY" > private_key.pem
+                ls -l
                 chmod 600 private_key.pem
                 ssh -o StrictHostKeyChecking=no -i private_key.pem $USER@$HOST << EOF
                   docker pull $ECR_REGISTRY/$IMAGE_NAME:latest
