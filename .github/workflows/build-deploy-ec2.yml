@@ -49,6 +49,7 @@ jobs:
                   IMAGE_NAME: fastapi-app
               run: |
                   cd SimpleApp
+                  aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
                   docker build -t devops .
                   docker tag devops:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/devops:latest
                   docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.ap-south-1.amazonaws.com/devops:latest
